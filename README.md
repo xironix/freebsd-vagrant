@@ -16,7 +16,7 @@ Currently these boxes are current with 9.1-R2.
 * VirtualBox Guest Additions 4.1.22
 * [Janus: Vim Distribution](https://github.com/carlhuda/janus)
 
-## Vagrantfile
+## Vagrantfile & Virtio
 
 FreeBSD is a special snowflake when it comes to Vagrant, and thus we
 need to provide some specific Vagrantfile options. I opted not to
@@ -30,9 +30,12 @@ as the VirtualBox guest additions do not support shared folders with
     Vagrant::Config.run do |config|
       config.vm.guest = :freebsd
 
+      # IMPORTANT: Make sure you include this line, otherwise it will fail
+      config.vm.customize ['modifyvm', :id, '--nictype1', 'virtio']
+
       # Shared folders don't work with FreeBSD, so we need host only networking
-      # and NFS to enable shared folders
-      config.vm.network :hostonly, "192.168.33.10"
+      # and NFS to enable shared folders.
+      config.vm.network :hostonly, "192.168.33.10", :nic_type => 'virtio'
       config.vm.share_folder "v-root", "/vagrant", ".", :nfs => true
     end
 
