@@ -2,8 +2,8 @@
 
 This repo contains download links to the following Vagrant boxes:
 
-* [FreeBSD 9.1 64-bit - UFS](https://github.com/downloads/xironix/freebsd-vagrant/freebsd_amd64-ufs.box)
-* [FreeBSD 9.1 64-bit - ZFS](https://github.com/downloads/xironix/freebsd-vagrant/freebsd_amd64-zfs.box)
+* [FreeBSD 9.1 64-bit - UFS](https://github.com/downloads/xironix/freebsd-vagrant/freebsd_amd64_ufs.box)
+* [FreeBSD 9.1 64-bit - ZFS](https://github.com/downloads/xironix/freebsd-vagrant/freebsd_amd64_zfs.box)
 
 ## Updating - Current with 9.1-R2
 
