@@ -1,8 +1,9 @@
 # FreeBSD 9.1 64-bit Vagrant Boxes
 
 This repo contains download links to the following Vagrant boxes:
-[FreeBSD 9.1 64-bit - UFS](https://github.com/downloads/xironix/freebsd-vagrant/freebsd_amd64-ufs.box)
-[FreeBSD 9.1 64-bit - ZFS](https://github.com/downloads/xironix/freebsd-vagrant/freebsd_amd64-zfs.box)
+
+* [FreeBSD 9.1 64-bit - UFS](https://github.com/downloads/xironix/freebsd-vagrant/freebsd_amd64-ufs.box)
+* [FreeBSD 9.1 64-bit - ZFS](https://github.com/downloads/xironix/freebsd-vagrant/freebsd_amd64-zfs.box)
 
 ## Preloaded Software
 * Puppet 3.0.1
@@ -103,7 +104,7 @@ VAGRANT kernel has been placed.
     $ csup /etc/supfile
     $ ln -s /root/kernels/VAGRANT /usr/src/sys/amd64/conf/VAGRANT
 
-Below is the custom kernel used in these boxes
+Below is the custom kernel used in these boxes.
 
     #
     # VAGRANT -- Minimal kernel configuration file for FreeBSD/amd64
