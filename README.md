@@ -98,7 +98,10 @@ Additioanlly, the entire system and kernel were built with clang. =D
     WITHOUT_WIRELESS=        YES
     WITHOUT_X11=             YES
     WITHOUT_GUI=             YES
+    WITHOUT_NTP=             YES # time sync is handled by VirtualBox
 
+    # Current Perl Version
+    PERL_VERSION=5.14.2
 
 ### Custom kernel
 
