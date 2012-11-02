@@ -41,6 +41,9 @@ options. See below for the configurations:
 To keep the size of these vagrant boxes small, buildworld has been
 executed without many unecessary items, such as X11 or bind9.
 
+*IMPORTANT:* Make sure you change `MAKE_JOBS_NUMBER` to something sane
+for your configuration.
+
 Additioanlly, the entire system and kernel were built with clang. =D
 
     # Use clang as the default compiler
@@ -49,7 +52,7 @@ Additioanlly, the entire system and kernel were built with clang. =D
     CPP= clang-cpp
 
     # 2 jobs per CPU
-    MAKE_JOBS_NUMBER= 16
+    MAKE_JOBS_NUMBER= 2
 
     # Compile Time Optimizations
     CPUTYPE?=  native
