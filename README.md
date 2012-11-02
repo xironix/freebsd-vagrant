@@ -41,6 +41,8 @@ options. See below for the configurations:
 To keep the size of these vagrant boxes small, buildworld has been
 executed without many unecessary items, such as X11 or bind9.
 
+Additioanlly, the entire system and kernel were built with clang. =D
+
     # Use clang as the default compiler
     CC=  clang
     CXX= clang++
