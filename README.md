@@ -5,6 +5,11 @@ This repo contains download links to the following Vagrant boxes:
 * [FreeBSD 9.1 64-bit - UFS](https://github.com/downloads/xironix/freebsd-vagrant/freebsd_amd64-ufs.box)
 * [FreeBSD 9.1 64-bit - ZFS](https://github.com/downloads/xironix/freebsd-vagrant/freebsd_amd64-zfs.box)
 
+## Updating - Current with 9.1-R2
+
+I will keep these Vagrant boxes up to date with 9.1 release candidate.
+Currently these boxes are current with 9.1-R2.
+
 ## Preloaded Software
 * Puppet 3.0.1
 * Chef 10.16.2
