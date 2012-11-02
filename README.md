@@ -16,6 +16,26 @@ Currently these boxes are current with 9.1-R2.
 * VirtualBox Guest Additions 4.1.22
 * [Janus: Vim Distribution](https://github.com/carlhuda/janus)
 
+## Vagrantfile
+
+FreeBSD is a special snowflake when it comes to Vagrant, and thus we
+need to provide some specific Vagrantfile options. I opted not to
+package this file within the box, as some people may not want to use
+shared folders or host-only networking.
+
+Use the following template if you're planning on using shared folders,
+as the VirtualBox guest additions do not support shared folders with
+*BSD -- we need to use NFS.
+
+    Vagrant::Config.run do |config|
+      config.vm.guest = :freebsd
+
+      # Shared folders don't work with FreeBSD, so we need host only networking
+      # and NFS to enable shared folders
+      config.vm.network :hostonly, "192.168.33.10"
+      config.vm.share_folder "v-root", "/vagrant", ".", :nfs => true
+    end
+
 ## FreeBSD ZFS Notes
 
 If you are going to use the FreeBSD ZFS box, you shouldn't configure the
