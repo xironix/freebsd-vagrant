@@ -1,30 +1,27 @@
-# FreeBSD 9.1-RC2 64-bit Vagrant Boxes
+# FreeBSD 9.1-RC3 64-bit Vagrant Boxes
 
 This repo contains download links to the following Vagrant boxes:
 
 * [FreeBSD 9.1 64-bit - UFS](https://github.com/downloads/xironix/freebsd-vagrant/freebsd_amd64_ufs.box)
 * [FreeBSD 9.1 64-bit - ZFS](https://github.com/downloads/xironix/freebsd-vagrant/freebsd_amd64_zfs.box)
 
-## Updating - Current with 9.1-RC2
+## Updating - Current with 9.1-RC3
 
 I will keep these Vagrant boxes up to date with 9.1 release candidate.
-Currently these boxes are current with 9.1-RC2.
+Currently these boxes are current with 9.1-RC3.
+
+**NEWS:** 2012-11-07 - Updated both the UFS and ZFS Vagrant boxes to FreeBSD 9.1-RC3
+(from 9.1-RC2). Also managed to update to VirtualBox Guest Additions
+4.2.4 via [redports](http://redports.org).
+
+Currently you will still get a warning about the version of the guest
+additions, but they are version 4.2.4.
 
 ## Preloaded Software
 * Puppet 3.0.1
 * Chef 10.16.2
-* VirtualBox Guest Additions 4.1.22
+* VirtualBox Guest Additions 4.2.4
 * [Janus: Vim Distribution](https://github.com/carlhuda/janus)
-
-**NOTE:** You may see the following error depending on your version of
-VirtualBox. This error can be safely ignored, as the latest guest
-additions for FreeBSD are 4.1.22 unfortunately.
-
-    [default] The guest additions on this VM do not match the install version of
-    VirtualBox! This may cause things such as forwarded ports, shared
-    folders, and more to not work properly. If any of those things fail on
-    this machine, please update the guest additions and repackage the
-    box.
 
 ## Vagrantfile & Virtio
 
