@@ -16,6 +16,16 @@ Currently these boxes are current with 9.1-R2.
 * VirtualBox Guest Additions 4.1.22
 * [Janus: Vim Distribution](https://github.com/carlhuda/janus)
 
+**NOTE:** You may see the following error depending on your version of
+VirtualBox. This error can be safely ignored, as the latest guest
+additions for FreeBSD are 4.1.22 unfortunately.
+
+    [default] The guest additions on this VM do not match the install version of
+    VirtualBox! This may cause things such as forwarded ports, shared
+    folders, and more to not work properly. If any of those things fail on
+    this machine, please update the guest additions and repackage the
+    box.
+
 ## Vagrantfile & Virtio
 
 FreeBSD is a special snowflake when it comes to Vagrant, and thus we
@@ -69,7 +79,7 @@ options. See below for the configurations:
 To keep the size of these vagrant boxes small, buildworld has been
 executed without many unecessary items, such as X11 or bind9.
 
-*IMPORTANT:* Make sure you change `MAKE_JOBS_NUMBER` to something sane
+**IMPORTANT:** Make sure you change `MAKE_JOBS_NUMBER` to something sane
 for your configuration.
 
 Additioanlly, the entire system and kernel were built with clang. =D
