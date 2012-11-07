@@ -1,14 +1,14 @@
-# FreeBSD 9.1 64-bit Vagrant Boxes
+# FreeBSD 9.1-RC2 64-bit Vagrant Boxes
 
 This repo contains download links to the following Vagrant boxes:
 
 * [FreeBSD 9.1 64-bit - UFS](https://github.com/downloads/xironix/freebsd-vagrant/freebsd_amd64_ufs.box)
 * [FreeBSD 9.1 64-bit - ZFS](https://github.com/downloads/xironix/freebsd-vagrant/freebsd_amd64_zfs.box)
 
-## Updating - Current with 9.1-R2
+## Updating - Current with 9.1-RC2
 
 I will keep these Vagrant boxes up to date with 9.1 release candidate.
-Currently these boxes are current with 9.1-R2.
+Currently these boxes are current with 9.1-RC2.
 
 ## Preloaded Software
 * Puppet 3.0.1
