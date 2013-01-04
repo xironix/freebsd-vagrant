@@ -2,8 +2,14 @@
 
 This repo contains download links to the following Vagrant boxes:
 
-* [FreeBSD 9.1 64-bit - UFS](https://github.com/downloads/xironix/freebsd-vagrant/freebsd_amd64_ufs.box)
-* [FreeBSD 9.1 64-bit - ZFS](https://github.com/downloads/xironix/freebsd-vagrant/freebsd_amd64_zfs.box)
+* [FreeBSD 9.1 64-bit - UFS](https://s3.amazonaws.com/VagrantBoxen/freebsd_amd64_ufs.box)
+* [FreeBSD 9.1 64-bit - ZFS](https://s3.amazonaws.com/VagrantBoxen/freebsd_amd64_zfs.box)
+
+Because GitHub has
+[deprecated its downloads tab](https://github.com/blog/1302-goodbye-uploads),
+I have had to move the Vagrant boxes to Amazon S3. Hopefully these boxes aren't so popular
+as to move me out of the
+[free storage tier](http://aws.amazon.com/free/). =p
 
 ## Updating - Current with 9.1-RELEASE
 
@@ -12,15 +18,21 @@ I will keep these Vagrant boxes up to date with the 9.1-RELEASE branch.
 **NEWS:**
 * 2013-01-03 - Updated both the UFS and ZFS Vagrant boxes to 9.1-RELEASE.
 * 2013-01-03 - Virtual Box images are now hosted with Amazon S3.
-* 2012-01-03 - VirtualBox Gust Additions updated to 4.2.6
+* 2012-01-03 - VirtualBox Guest Additions updated to 4.2.6
 
-**IMPORTANT**: GitHub has [deprecated its downloads tab](https://github.com/blog/1302-goodbye-uploads). I have thus deleted the old RC3 downloads. Please update your VirtualBox links to the ones provided in this README.
+**IMPORTANT**: GitHub has
+[deprecated its downloads tab](https://github.com/blog/1302-goodbye-uploads)
+. I have thus deleted the old RC3 downloads. Please update your VirtualBox links to the ones provided in this README.
 
 ## Preloaded Software
 * Puppet 3.0.2
 * Chef 10.16.4
 * VirtualBox Guest Additions 4.2.6
 * [Janus: Vim Distribution](https://github.com/carlhuda/janus)
+
+**NOTE:** VirtualBox Guest Additions are version 4.2.6, but for some
+reason Vagrant complains they are still version 4.1.22. I have yet to
+figure out why this is the case.
 
 ## Vagrantfile & Virtio
 
