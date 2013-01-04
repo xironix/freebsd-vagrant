@@ -1,26 +1,25 @@
-# FreeBSD 9.1-RC3 64-bit Vagrant Boxes
+# FreeBSD 9.1-RELEASE 64-bit Vagrant Boxes
 
 This repo contains download links to the following Vagrant boxes:
 
 * [FreeBSD 9.1 64-bit - UFS](https://github.com/downloads/xironix/freebsd-vagrant/freebsd_amd64_ufs.box)
 * [FreeBSD 9.1 64-bit - ZFS](https://github.com/downloads/xironix/freebsd-vagrant/freebsd_amd64_zfs.box)
 
-## Updating - Current with 9.1-RC3
+## Updating - Current with 9.1-RELEASE
 
-I will keep these Vagrant boxes up to date with 9.1 release candidate.
-Currently these boxes are current with 9.1-RC3.
+I will keep these Vagrant boxes up to date with the 9.1-RELEASE branch.
 
-**NEWS:** 2012-11-07 - Updated both the UFS and ZFS Vagrant boxes to FreeBSD 9.1-RC3
-(from 9.1-RC2). Also managed to update to VirtualBox Guest Additions
-4.2.4 via [redports](http://redports.org).
+**NEWS:**
+* 2013-01-03 - Updated both the UFS and ZFS Vagrant boxes to 9.1-RELEASE.
+* 2013-01-03 - Virtual Box images are now hosted with Amazon S3.
+* 2012-01-03 - VirtualBox Gust Additions updated to 4.2.6
 
-Currently you will still get a warning about the version of the guest
-additions, but they are version 4.2.4.
+**IMPORTANT**: GitHub has [deprecated its downloads tab](https://github.com/blog/1302-goodbye-uploads). I have thus deleted the old RC3 downloads. Please update your VirtualBox links to the ones provided in this README.
 
 ## Preloaded Software
-* Puppet 3.0.1
-* Chef 10.16.2
-* VirtualBox Guest Additions 4.2.4
+* Puppet 3.0.2
+* Chef 10.16.4
+* VirtualBox Guest Additions 4.2.6
 * [Janus: Vim Distribution](https://github.com/carlhuda/janus)
 
 ## Vagrantfile & Virtio
@@ -64,7 +63,26 @@ sources, do the following:
 
 ### System Sources
 
-    $ csup /etc/supfile
+**NOTE:** CVSup as been deprecated in favour of subversion. Use one of
+the following commands to checkout the system sources depending on your
+location.
+
+**US West Coast:**
+
+    $ svn co http://svn0.us-west.freebsd.org/base/release/9.1.0/
+/usr/src
+
+**US East Coast:**
+
+    $ svn co http://svn0.us-east.freebsd.org/base/release/9.1.0/
+/usr/src
+
+Use /base/head if you want CURRENT.
+
+To update the sources, simply do the following:
+
+    $ cd /usr/src
+    $ svn update
 
 ## Custom Configuration
 
