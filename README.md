@@ -9,7 +9,11 @@ Because GitHub has
 [deprecated its downloads tab](https://github.com/blog/1302-goodbye-uploads),
 I have had to move the Vagrant boxes to Amazon S3. Hopefully these boxes aren't so popular
 as to move me out of the
-[free storage tier](http://aws.amazon.com/free/). =p
+[free storage tier](http://aws.amazon.com/free/).
+
+**UPDATE:** Regarding the free storage tier, I have been charged an
+insane sum of an entire $1 for transfers thus far. I think I can manage
+keeping these on S3 for now. =p
 
 ## Updating - Current with 9.1-RELEASE
 
@@ -81,13 +85,11 @@ location.
 
 **US West Coast:**
 
-    $ svn co http://svn0.us-west.freebsd.org/base/release/9.1.0/
-/usr/src
+    $ svn co http://svn0.us-west.freebsd.org/base/release/9.1.0/ /usr/src
 
 **US East Coast:**
 
-    $ svn co http://svn0.us-east.freebsd.org/base/release/9.1.0/
-/usr/src
+    $ svn co http://svn0.us-east.freebsd.org/base/release/9.1.0/ /usr/src
 
 Use /base/head if you want CURRENT.
 
@@ -126,7 +128,7 @@ Additioanlly, the entire system and kernel were built with clang. =D
 
     # Default Kernel (see /root/kernels)
     KERNCONF=  VAGRANT
-    SUPFILE=   /etc/supfile
+    SUPFILE=   /etc/supfile  # TODO: Remove this, it has no use anymore
 
     # Force Optimized CFLAGS 
     BUILD_OPTIMIZED=         YES
