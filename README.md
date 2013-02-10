@@ -11,26 +11,28 @@ I have had to move the Vagrant boxes to Amazon S3. Hopefully these boxes aren't 
 as to move me out of the
 [free storage tier](http://aws.amazon.com/free/).
 
-**UPDATE:** Regarding the free storage tier, I have been charged an
-insane sum of an entire $1 for transfers thus far. I think I can manage
-keeping these on S3 for now. =p
-
 ## Updating - Current with 9.1-RELEASE
 
 I will keep these Vagrant boxes up to date with the 9.1-RELEASE branch.
+For the time being, you can probably expect these Vagrant boxes to be
+updated once or twice a month.
+
+Additionally, I'm more than happy to accomodate any special requests
+with respect to any default software installed or even custom Vagrant
+boxes based on 9.1-RELEASE.
 
 **NEWS:**
+* 2013-02-10 - Bundled Vagrantfile now includes a link to where the box
+  came from (config.vm.box_url).
+* 2013-02-10 - Updated both the UFS and ZFS Vagrant boxes. This includes
+  all recent security fixes, port updates and rubygems.
 * 2013-01-03 - Updated both the UFS and ZFS Vagrant boxes to 9.1-RELEASE.
 * 2013-01-03 - Virtual Box images are now hosted with Amazon S3.
 * 2012-01-03 - VirtualBox Guest Additions updated to 4.2.6
 
-**IMPORTANT**: GitHub has
-[deprecated its downloads tab](https://github.com/blog/1302-goodbye-uploads)
-. I have thus deleted the old RC3 downloads. Please update your VirtualBox links to the ones provided in this README.
-
 ## Preloaded Software
-* Puppet 3.0.2
-* Chef 10.16.4
+* Puppet 3.1.0
+* Chef 11.2.0
 * VirtualBox Guest Additions 4.2.6
 * [Janus: Vim Distribution](https://github.com/carlhuda/janus)
 
@@ -74,8 +76,28 @@ sources, do the following:
 
 ### Ports Collection
 
+This will install a fresh ports tree from which you can install ports
+from scratch. This must be done on any fresh Vagrant boxes if you want
+to install any ports.
+
     $ portsnap fetch
     $ portsnap extract
+
+To update an existing ports tree, simply run the following.
+
+    $ portsnap fetch
+    $ portsnap update
+
+To install a port from the ports tree, I generally use portmaster. The
+convention for using portmaster is as follows:
+
+    $ portmaster -BCD /usr/ports/foo/bar
+
+You can generally omit the /usr/ports part for installing ports with
+portmaster. Additionally, if you want to upgrade all installed ports,
+run the following command:
+
+    $ portmaster -BCDa
 
 ### System Sources
 
@@ -126,9 +148,11 @@ Additioanlly, the entire system and kernel were built with clang. =D
     CFLAGS=    -O2 -pipe -fno-strict-aliasing
     COPTFLAGS= -O2 -pipe -funroll-loops -ffast-math -fno-strict-aliasing
 
+    # Update to new PKGNG package manager
+    WITH_PKGNG= YES
+
     # Default Kernel (see /root/kernels)
-    KERNCONF=  VAGRANT
-    SUPFILE=   /etc/supfile  # TODO: Remove this, it has no use anymore
+    KERNCONF=   VAGRANT
 
     # Force Optimized CFLAGS 
     BUILD_OPTIMIZED=         YES
