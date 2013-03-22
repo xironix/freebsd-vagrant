@@ -15,8 +15,13 @@ Additionally, I'm more than happy to accomodate any special requests
 with respect to any default software installed or even custom Vagrant
 boxes based on 9.1-RELEASE.
 
+**IMPORTANT:** With the release of Vagrant 1.1.0 through to 1.1.2 (support in
+future versions remains to be seen), mounting NFS shares fails. With much tial
+and error, I was forced to write a shell provisioning script to mount NFS shares
+manually. Please see [Vagrant & FreeBSD](#Vagrant & FreeBSD)
+
 **CHANGELOG:**
-TODO: * 2012-03-22 - Updated README.md for Vagrant 1.1.2
+* 2012-03-22 - Updated README.md for Vagrant 1.1.2 (what a pain!!)
 * 2012-03-22 - Corrected insane `MAKE_JOBS_NUMBER` in make.conf
 * 2012-03-22 - Configued basic bash completion (see `/usr/local/etc/bash_completion.d`)
 * 2013-03-22 - FreeBSD updated with `freebsd-update`
@@ -43,28 +48,59 @@ TODO: * 2012-03-22 - Updated README.md for Vagrant 1.1.2
 * Ruby 1.9
 * VirtualBox Guest Additions 4.2.6
 
-## Vagrantfile & Virtio
+## Vagrant & FreeBSD
 
 FreeBSD is a special snowflake when it comes to Vagrant, and thus we
 need to provide some specific Vagrantfile options. I opted not to
-package this file within the box, as some people may not want to use
-shared folders or host-only networking.
+package this file within the box, as some may not wish to setup shared
+folders.
+
+# NFS Exports Template
+
+On the host system, you will have to manually define an NFS export. Currently
+I have only tested this on [Gentoo Linux](http://gentoo.org), but it will
+probably work on Mac OS X as well as other Linux distributions.
+
+Here is an example `/etc/exports` file for the NFS export. Change `/EXPORT/DIR`
+to the directory that contains your Vagrant setup. You can use any higher
+directory as NFS exports are recursive.
+
+    # /etc/exports: NFS file systems being exported.  See exports(5).
+    /EXPORT/DIR 127.0.0.1(rw,async,no_root_squash,no_subtree_check,insecure)
+
+# Vagrantfile Template
 
 Use the following template if you're planning on using shared folders,
-as the VirtualBox guest additions do not support shared folders with
-*BSD -- we need to use NFS.
+as the VirtualBox guest additions do not support shared folders with FreeBSD
+-- we need to use NFS.
 
-    Vagrant::Config.run do |config|
-      config.vm.guest = :freebsd
+    # -*- mode: ruby -*-
+    # vi: set ft=ruby :
 
-      # IMPORTANT: Make sure you include this line, otherwise it will fail
-      config.vm.customize ['modifyvm', :id, '--nictype1', 'virtio']
+    Vagrant.configure("2") do |config|
+        config.vm.box = "FreeBSD"
+        config.vm.guest = :freebsd
+        # UFS Box
+        config.vm.box_url = "https://s3.amazonaws.com/VagrantBoxen/freebsd_amd64_ufs.box"
+        # ZFS Box
+        #config.vm.box_url = "https://s3.amazonaws.com/VagrantBoxen/freebsd_amd64_zfs.box"
 
-      # Shared folders don't work with FreeBSD, so we need host only networking
-      # and NFS to enable shared folders.
-      config.vm.network :hostonly, "192.168.33.10", :nic_type => 'virtio'
-      config.vm.share_folder "v-root", "/vagrant", ".", :nfs => true
+        # Customize the virtual machine environment
+        config.vm.provider :virtualbox do |vb|
+            vb.customize ["modifyvm", :id, "--nictype1", "virtio"]
+        end
+
+        # Change s.args to reflect your configuration
+        config.vm.provision :shell do |s|
+            s.inline = "mkdir -p $2 ; \
+                mount $(route get 127.1.1.1 | tr -d ' ' | grep gateway | \
+                awk -F':' '{print $2}'):$1 $2"
+            s.args = "/SOURCE/DIR /DEST/DIR"
+        end
     end
+
+The provisioning script grabs the default gateway for the NFS hsot. Be sure to
+change `s.args` to reflect your own source and destination directories.
 
 ## FreeBSD ZFS Notes
 
