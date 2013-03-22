@@ -21,20 +21,31 @@ Additionally, I'm more than happy to accomodate any special requests
 with respect to any default software installed or even custom Vagrant
 boxes based on 9.1-RELEASE.
 
-**NEWS:**
+**CHANGELOG:**
+TODO: * 2012-02-21 - Corrected insane MAKE_JOBS_NUMBER in make.conf
+TODO: * 2012-02-21 - Configued bash completion
+TODO: * 2013-03-21 - Configured basic vim environment using Vundle
+* 2013-03-21 - Using threaded perl
+* 2013-03-21 - Upgraded to Ruby 1.9.3p392
+* 2013-03-21 - Removed unnecessary ports
+* 2013-03-21 - Changed default umask to 0027
+* 2013-03-21 - Changed ~/.bashrc to be more sane
+* 2013-03-21 - Added useful aliases (see ~/.bash_aliases)
+* 2013-03-21 - VirtualBox Guest Additions updated to 4.2.10
+* 2013-03-21 - Removed Janus vim environment
 * 2013-02-10 - Bundled Vagrantfile now includes a link to where the box
   came from (config.vm.box_url).
 * 2013-02-10 - Updated both the UFS and ZFS Vagrant boxes. This includes
   all recent security fixes, port updates and rubygems.
 * 2013-01-03 - Updated both the UFS and ZFS Vagrant boxes to 9.1-RELEASE.
-* 2013-01-03 - Virtual Box images are now hosted with Amazon S3.
+* 2013-01-03 - VirtualBox images are now hosted with Amazon S3.
 * 2012-01-03 - VirtualBox Guest Additions updated to 4.2.6
 
 ## Preloaded Software
 * Puppet 3.1.0
 * Chef 11.2.0
-* VirtualBox Guest Additions 4.2.6
-* [Janus: Vim Distribution](https://github.com/carlhuda/janus)
+* Ruby 1.9
+* VirtualBox Guest Additions 4.2.10
 
 **NOTE:** VirtualBox Guest Additions are version 4.2.6, but for some
 reason Vagrant complains they are still version 4.1.22. I have yet to
