@@ -5,12 +5,6 @@ This repo contains download links to the following Vagrant boxes:
 * [FreeBSD 9.1 64-bit - UFS](https://s3.amazonaws.com/VagrantBoxen/freebsd_amd64_ufs.box)
 * [FreeBSD 9.1 64-bit - ZFS](https://s3.amazonaws.com/VagrantBoxen/freebsd_amd64_zfs.box)
 
-Because GitHub has
-[deprecated its downloads tab](https://github.com/blog/1302-goodbye-uploads),
-I have had to move the Vagrant boxes to Amazon S3. Hopefully these boxes aren't so popular
-as to move me out of the
-[free storage tier](http://aws.amazon.com/free/).
-
 ## Updating - Current with 9.1-RELEASE
 
 I will keep these Vagrant boxes up to date with the 9.1-RELEASE branch.
@@ -22,19 +16,21 @@ with respect to any default software installed or even custom Vagrant
 boxes based on 9.1-RELEASE.
 
 **CHANGELOG:**
-TODO: * 2012-02-21 - Corrected insane MAKE_JOBS_NUMBER in make.conf
-TODO: * 2012-02-21 - Configued bash completion
-TODO: * 2013-03-21 - Configured basic vim environment using Vundle
+TODO: * 2012-03-22 - Updated README.md for Vagrant 1.1.2
+* 2012-03-22 - Corrected insane `MAKE_JOBS_NUMBER` in make.conf
+* 2012-03-22 - Configued basic bash completion (see `/usr/local/etc/bash_completion.d`)
+* 2013-03-22 - FreeBSD updated with `freebsd-update`
+* 2013-03-22 - Updated to Puppet 3.1.1 and Chef 11.4.0
+* 2013-03-22 - Configured basic vim environment using Vundle
 * 2013-03-21 - Using threaded perl
 * 2013-03-21 - Upgraded to Ruby 1.9.3p392
 * 2013-03-21 - Removed unnecessary ports
 * 2013-03-21 - Changed default umask to 0027
 * 2013-03-21 - Changed ~/.bashrc to be more sane
-* 2013-03-21 - Added useful aliases (see ~/.bash_aliases)
-* 2013-03-21 - VirtualBox Guest Additions updated to 4.2.10
+* 2013-03-21 - Added useful aliases (see `~/.bash_aliases`)
 * 2013-03-21 - Removed Janus vim environment
 * 2013-02-10 - Bundled Vagrantfile now includes a link to where the box
-  came from (config.vm.box_url).
+  came from (`config.vm.box_url`).
 * 2013-02-10 - Updated both the UFS and ZFS Vagrant boxes. This includes
   all recent security fixes, port updates and rubygems.
 * 2013-01-03 - Updated both the UFS and ZFS Vagrant boxes to 9.1-RELEASE.
@@ -42,14 +38,10 @@ TODO: * 2013-03-21 - Configured basic vim environment using Vundle
 * 2012-01-03 - VirtualBox Guest Additions updated to 4.2.6
 
 ## Preloaded Software
-* Puppet 3.1.0
-* Chef 11.2.0
+* Puppet 3.1.1
+* Chef 11.4.0
 * Ruby 1.9
-* VirtualBox Guest Additions 4.2.10
-
-**NOTE:** VirtualBox Guest Additions are version 4.2.6, but for some
-reason Vagrant complains they are still version 4.1.22. I have yet to
-figure out why this is the case.
+* VirtualBox Guest Additions 4.2.6
 
 ## Vagrantfile & Virtio
 
@@ -165,7 +157,7 @@ Additioanlly, the entire system and kernel were built with clang. =D
     # Default Kernel (see /root/kernels)
     KERNCONF=   VAGRANT
 
-    # Force Optimized CFLAGS 
+    # Force Optimized CFLAGS
     BUILD_OPTIMIZED=         YES
     WITH_CPUFLAGS=           YES
     WITH_OPTIMIZED_CFLAGS=   YES
@@ -228,7 +220,7 @@ Below is the custom kernel used in these boxes.
     # if you've installed the doc distribution, otherwise always see the
     cpu     HAMMER              # 64-bit kernel
     ident   VAGRANT
-    
+
     options   SCHED_ULE         # ULE scheduler
     options   PREEMPTION        # Enable kernel thread preemption
     options   INET              # InterNETworking
@@ -262,52 +254,52 @@ Below is the custom kernel used in these boxes.
     options   AUDIT             # Security event auditing
     options   MAC               # TrustedBSD MAC Framework
     options   INCLUDE_CONFIG_FILE # Include this file in kernel
-    
+
     # Make an SMP-capable kernel by default
     options   SMP     # Symmetric MultiProcessor Kernel
-    
+
     # CPU frequency control
     #device    cpufreq
-    
-    # Bus support.
+
+    # Bus support
     device    acpi
     device    pci
-    
+
     # Floppy drives
     device    fdc
-    
+
     # ATA controllers
     device    ahci          # AHCI-compatible SATA controllers
     device    ata           # Legacy ATA/SATA controllers
     options   ATA_CAM       # Handle legacy controllers with CAM
     options   ATA_STATIC_ID # Static device numbering
-    
+
     # ATA/SCSI peripherals
     device    scbus # SCSI bus (required for ATA/SCSI)
     device    da    # Direct Access (disks)
     device    cd    # CD
     device    ctl   # CAM Target Layer
-    
+
     # atkbdc0 controls both the keyboard and the PS/2 mouse
     device    atkbdc  # AT keyboard controller
     device    atkbd   # AT keyboard
     device    psm     # PS/2 mouse
-    
+
     device    vga     # VGA video card driver
     options   VESA    # Add support for VESA BIOS Extensions (VBE)
-    
+
     # syscons is the default console driver, resembling an SCO console
     device    sc
     options   SC_PIXEL_MODE # add support for the raster text mode
-    
+
     # PCI Ethernet NICs.
     device    em    # Intel PRO/1000 Gigabit Ethernet Family
-    
+
     # Pseudo devices.
     device    loop      # Network loopback
     device    random    # Entropy device
     device    ether     # Ethernet support
-    
+
     # The `bpf' device enables the Berkeley Packet Filter.
     # Be aware of the administrative consequences of enabling this!
     # Note that 'bpf' is required for DHCP.
