@@ -21,6 +21,7 @@ and error, I was forced to write a shell provisioning script to mount NFS shares
 manually. Please see [Vagrant & FreeBSD](#Vagrant & FreeBSD)
 
 **CHANGELOG:**
+* 2012-03-22 - Included openjdk7 as requested by @marcoVermeulen
 * 2012-03-22 - Updated README.md for Vagrant 1.1.2 (what a pain!!)
 * 2012-03-22 - Corrected insane `MAKE_JOBS_NUMBER` in make.conf
 * 2012-03-22 - Configued basic bash completion (see `/usr/local/etc/bash_completion.d`)
@@ -43,10 +44,31 @@ manually. Please see [Vagrant & FreeBSD](#Vagrant & FreeBSD)
 * 2012-01-03 - VirtualBox Guest Additions updated to 4.2.6
 
 ## Preloaded Software
+This is not a complete list of installed software, but more of a list of
+semi-noteable installations. As with @marcoVermeulen and his request for
+openjdk7 to be included, I am open to preloading other sofrware packages
+upon request.
+
+However, it should be noticed that I will always attempt to keep the Vagrant
+box as small as possible. As such, I will tend to avoid compiling anything
+related to Xorg, LAMP servers, other other related services.
+
+### Vagrant Requirements
 * Puppet 3.1.1
 * Chef 11.4.0
 * Ruby 1.9
+* sudo 1.8.6.p7
 * VirtualBox Guest Additions 4.2.6
+
+### Other Software
+* openjdk
+* vim 7.3.669
+* wget 1.14
+* curl 7.24
+* git 1.8.2
+* subversion 1.7.8
+* rsync 3.0.9
+* bash 4.2.42
 
 ## Vagrant & FreeBSD
 
@@ -55,7 +77,7 @@ need to provide some specific Vagrantfile options. I opted not to
 package this file within the box, as some may not wish to setup shared
 folders.
 
-# NFS Exports Template
+### NFS Exports Template
 
 On the host system, you will have to manually define an NFS export. Currently
 I have only tested this on [Gentoo Linux](http://gentoo.org), but it will
@@ -68,7 +90,7 @@ directory as NFS exports are recursive.
     # /etc/exports: NFS file systems being exported.  See exports(5).
     /EXPORT/DIR 127.0.0.1(rw,async,no_root_squash,no_subtree_check,insecure)
 
-# Vagrantfile Template
+### Vagrantfile Template
 
 Use the following template if you're planning on using shared folders,
 as the VirtualBox guest additions do not support shared folders with FreeBSD
@@ -80,10 +102,9 @@ as the VirtualBox guest additions do not support shared folders with FreeBSD
     Vagrant.configure("2") do |config|
         config.vm.box = "FreeBSD"
         config.vm.guest = :freebsd
-        # UFS Box
+
+        # UFS Box or ZFS Box, you choose!
         config.vm.box_url = "https://s3.amazonaws.com/VagrantBoxen/freebsd_amd64_ufs.box"
-        # ZFS Box
-        #config.vm.box_url = "https://s3.amazonaws.com/VagrantBoxen/freebsd_amd64_zfs.box"
 
         # Customize the virtual machine environment
         config.vm.provider :virtualbox do |vb|
