@@ -18,10 +18,11 @@ boxes based on 9.1-RELEASE.
 **IMPORTANT:** With the release of Vagrant 1.1.0 through to 1.1.2 (support in
 future versions remains to be seen), mounting NFS shares fails. With much tial
 and error, I was forced to write a shell provisioning script to mount NFS shares
-manually. Please see [Vagrant & FreeBSD](#Vagrant & FreeBSD)
+manually. Please see [Vagrant & FreeBSD](#vagrant--freebsd)
 
 **CHANGELOG:**
-* 2012-03-22 - Included openjdk7 as requested by @marcoVermeulen
+* 2012-03-22 - Included openjdk7 as requested by
+[@marcoVermeulen](https://github.com/marcoVermeulen)
 * 2012-03-22 - Updated README.md for Vagrant 1.1.2 (what a pain!!)
 * 2012-03-22 - Corrected insane `MAKE_JOBS_NUMBER` in make.conf
 * 2012-03-22 - Configued basic bash completion (see `/usr/local/etc/bash_completion.d`)
@@ -45,7 +46,8 @@ manually. Please see [Vagrant & FreeBSD](#Vagrant & FreeBSD)
 
 ## Preloaded Software
 This is not a complete list of installed software, but more of a list of
-semi-noteable installations. As with @marcoVermeulen and his request for
+semi-noteable installations. As with
+[@marcoVermeulen](https://github.com/marcoVermeulen) and his request for
 openjdk7 to be included, I am open to preloading other sofrware packages
 upon request.
 
