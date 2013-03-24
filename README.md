@@ -2,8 +2,8 @@
 
 This repo contains download links to the following Vagrant boxes:
 
-* [FreeBSD 9.1 64-bit - UFS](https://s3.amazonaws.com/VagrantBoxen/freebsd_amd64_ufs.box)
-* [FreeBSD 9.1 64-bit - ZFS](https://s3.amazonaws.com/VagrantBoxen/freebsd_amd64_zfs.box)
+* [FreeBSD 9.1 64-bit - UFS](https://s3.amazonaws.com/vagrant_boxen/freebsd_amd64_ufs.box)
+* [FreeBSD 9.1 64-bit - ZFS](https://s3.amazonaws.com/vagrant_boxen/freebsd_amd64_zfs.box)
 
 ## Updating - Current with 9.1-RELEASE
 
@@ -15,12 +15,16 @@ Additionally, I'm more than happy to accomodate any special requests
 with respect to any default software installed or even custom Vagrant
 boxes based on 9.1-RELEASE.
 
+**UPDATE:** The URL for the Vagrant boxes has changed. Please update your Vagrantfile
+to reflect the changes.
+
 **IMPORTANT:** With the release of Vagrant 1.1.0 through to 1.1.2 (support in
 future versions remains to be seen), mounting NFS shares fails. With much tial
 and error, I was forced to write a shell provisioning script to mount NFS shares
 manually. Please see [Vagrant & FreeBSD](#vagrant--freebsd)
 
 **CHANGELOG:**
+* 2012-03-23 - Renamed S3 path to use lowercase (S3 best practices)
 * 2012-03-22 - Included openjdk7 as requested by
 [@marcoVermeulen](https://github.com/marcoVermeulen)
 * 2012-03-22 - Updated README.md for Vagrant 1.1.2 (what a pain!!)
@@ -106,7 +110,7 @@ as the VirtualBox guest additions do not support shared folders with FreeBSD
         config.vm.guest = :freebsd
 
         # UFS Box or ZFS Box, you choose!
-        config.vm.box_url = "https://s3.amazonaws.com/VagrantBoxen/freebsd_amd64_ufs.box"
+        config.vm.box_url = "https://s3.amazonaws.com/vagrant_boxen/freebsd_amd64_ufs.box"
 
         # Customize the virtual machine environment
         config.vm.provider :virtualbox do |vb|
