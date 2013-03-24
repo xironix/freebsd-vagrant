@@ -7,16 +7,16 @@ This repo contains download links to the following Vagrant boxes:
 
 ## Updating - Current with 9.1-RELEASE
 
-I will keep these Vagrant boxes up to date with the 9.1-RELEASE branch.
-For the time being, you can probably expect these Vagrant boxes to be
-updated once or twice a month.
+I will keep these Vagrant boxes up to date with the 9.1-RELEASE branch. For the
+time being, you can probably expect these Vagrant boxes to be updated once or
+twice a month.
 
-Additionally, I'm more than happy to accomodate any special requests
-with respect to any default software installed or even custom Vagrant
-boxes based on 9.1-RELEASE.
+Additionally, I'm more than happy to accomodate any special requests with
+respect to any default software installed or even custom Vagrant boxes based on
+9.1-RELEASE.
 
-**UPDATE:** The URL for the Vagrant boxes has changed. Please update your Vagrantfile
-to reflect the changes.
+**UPDATE:** The URL for the Vagrant boxes has changed. Please update your
+Vagrantfile to reflect the changes.
 
 **IMPORTANT:** With the release of Vagrant 1.1.0 through to 1.1.2 (support in
 future versions remains to be seen), mounting NFS shares fails. With much tial
@@ -29,7 +29,8 @@ manually. Please see [Vagrant & FreeBSD](#vagrant--freebsd)
 [@marcoVermeulen](https://github.com/marcoVermeulen)
 * 2012-03-22 - Updated README.md for Vagrant 1.1.2 (what a pain!!)
 * 2012-03-22 - Corrected insane `MAKE_JOBS_NUMBER` in make.conf
-* 2012-03-22 - Configued basic bash completion (see `/usr/local/etc/bash_completion.d`)
+* 2012-03-22 - Configued basic bash completion
+(see `/usr/local/etc/bash_completion.d`)
 * 2013-03-22 - FreeBSD updated with `freebsd-update`
 * 2013-03-22 - Updated to Puppet 3.1.1 and Chef 11.4.0
 * 2013-03-22 - Configured basic vim environment using Vundle
@@ -40,10 +41,10 @@ manually. Please see [Vagrant & FreeBSD](#vagrant--freebsd)
 * 2013-03-21 - Changed ~/.bashrc to be more sane
 * 2013-03-21 - Added useful aliases (see `~/.bash_aliases`)
 * 2013-03-21 - Removed Janus vim environment
-* 2013-02-10 - Bundled Vagrantfile now includes a link to where the box
-  came from (`config.vm.box_url`).
-* 2013-02-10 - Updated both the UFS and ZFS Vagrant boxes. This includes
-  all recent security fixes, port updates and rubygems.
+* 2013-02-10 - Bundled Vagrantfile now includes a link to where the box came
+from (`config.vm.box_url`).
+* 2013-02-10 - Updated both the UFS and ZFS Vagrant boxes. This includes all
+recent security fixes, port updates and rubygems.
 * 2013-01-03 - Updated both the UFS and ZFS Vagrant boxes to 9.1-RELEASE.
 * 2013-01-03 - VirtualBox images are now hosted with Amazon S3.
 * 2012-01-03 - VirtualBox Guest Additions updated to 4.2.6
@@ -52,12 +53,12 @@ manually. Please see [Vagrant & FreeBSD](#vagrant--freebsd)
 This is not a complete list of installed software, but more of a list of
 semi-noteable installations. As with
 [@marcoVermeulen](https://github.com/marcoVermeulen) and his request for
-openjdk7 to be included, I am open to preloading other sofrware packages
-upon request.
+openjdk7 to be included, I am open to preloading other sofrware packages upon
+request.
 
-However, it should be noticed that I will always attempt to keep the Vagrant
-box as small as possible. As such, I will tend to avoid compiling anything
-related to Xorg, LAMP servers, other other related services.
+However, it should be noticed that I will always attempt to keep the Vagrant box
+as small as possible. As such, I will tend to avoid compiling anything related
+to Xorg, LAMP servers, other other related services.
 
 ### Vagrant Requirements
 * Puppet 3.1.1
@@ -78,16 +79,15 @@ related to Xorg, LAMP servers, other other related services.
 
 ## Vagrant & FreeBSD
 
-FreeBSD is a special snowflake when it comes to Vagrant, and thus we
-need to provide some specific Vagrantfile options. I opted not to
-package this file within the box, as some may not wish to setup shared
-folders.
+FreeBSD is a special snowflake when it comes to Vagrant, and thus we need to
+provide some specific Vagrantfile options. I opted not to package this file
+within the box, as some may not wish to setup shared folders.
 
 ### NFS Exports Template
 
-On the host system, you will have to manually define an NFS export. Currently
-I have only tested this on [Gentoo Linux](http://gentoo.org), but it will
-probably work on Mac OS X as well as other Linux distributions.
+On the host system, you will have to manually define an NFS export. Currently I
+have only tested this on [Gentoo Linux](http://gentoo.org), but it will probably
+work on Mac OS X as well as other Linux distributions.
 
 Here is an example `/etc/exports` file for the NFS export. Change `/EXPORT/DIR`
 to the directory that contains your Vagrant setup. You can use any higher
@@ -98,9 +98,9 @@ directory as NFS exports are recursive.
 
 ### Vagrantfile Template
 
-Use the following template if you're planning on using shared folders,
-as the VirtualBox guest additions do not support shared folders with FreeBSD
--- we need to use NFS.
+Use the following template if you're planning on using shared folders, as the
+VirtualBox guest additions do not support shared folders with FreeBSD -- we need
+to use NFS.
 
     # -*- mode: ruby -*-
     # vi: set ft=ruby :
@@ -131,20 +131,20 @@ change `s.args` to reflect your own source and destination directories.
 
 ## FreeBSD ZFS Notes
 
-If you are going to use the FreeBSD ZFS box, you shouldn't configure the
-box with anything less than 1.5GB of RAM (2GB+ is much preferred).
+If you are going to use the FreeBSD ZFS box, you shouldn't configure the box
+with anything less than 1.5GB of RAM (2GB+ is much preferred).
 
 ## Ports & Sources
 
 To slim down the size of these Vagrant boxes, the ports collection and system
-sources have been removed. To install a new ports collection and system
-sources, do the following:
+sources have been removed. To install a new ports collection and system sources,
+do the following:
 
 ### Ports Collection
 
-This will install a fresh ports tree from which you can install ports
-from scratch. This must be done on any fresh Vagrant boxes if you want
-to install any ports.
+This will install a fresh ports tree from which you can install ports from
+scratch. This must be done on any fresh Vagrant boxes if you want to install any
+ports.
 
     $ portsnap fetch
     $ portsnap extract
@@ -159,17 +159,16 @@ convention for using portmaster is as follows:
 
     $ portmaster -BCD /usr/ports/foo/bar
 
-You can generally omit the /usr/ports part for installing ports with
-portmaster. Additionally, if you want to upgrade all installed ports,
-run the following command:
+You can generally omit the /usr/ports part for installing ports with portmaster.
+Additionally, if you want to upgrade all installed ports, run the following
+command:
 
     $ portmaster -BCDa
 
 ### System Sources
 
-**NOTE:** CVSup as been deprecated in favour of subversion. Use one of
-the following commands to checkout the system sources depending on your
-location.
+**NOTE:** CVSup as been deprecated in favour of subversion. Use one of the
+following commands to checkout the system sources depending on your location.
 
 **US West Coast:**
 
@@ -188,16 +187,16 @@ To update the sources, simply do the following:
 
 ## Custom Configuration
 
-These Vagrant boxes make use of a custom FreeBSD kernel and make.conf
-options. See below for the configurations:
+These Vagrant boxes make use of a custom FreeBSD kernel and `make.conf` options.
+See below for the configurations:
 
 ### Custom make.conf
 
-To keep the size of these vagrant boxes small, buildworld has been
-executed without many unecessary items, such as X11 or bind9.
+To keep the size of these vagrant boxes small, buildworld has been executed
+without many unecessary items, such as X11 or bind9.
 
-**IMPORTANT:** Make sure you change `MAKE_JOBS_NUMBER` to something sane
-for your configuration.
+**IMPORTANT:** Make sure you change `MAKE_JOBS_NUMBER` to something sane for
+your configuration.
 
 Additioanlly, the entire system and kernel were built with clang. =D
 
@@ -262,9 +261,9 @@ Additioanlly, the entire system and kernel were built with clang. =D
 
 ### Custom kernel
 
-If you're going to rebuild this kernel, you'll need to make sure that
-the system sources have been downloaded and a symbolic link to the
-VAGRANT kernel has been placed.
+If you're going to rebuild this kernel, you'll need to make sure that the system
+sources have been downloaded and a symbolic link to the VAGRANT kernel has been
+placed.
 
     $ csup /etc/supfile
     $ ln -s /root/kernels/VAGRANT /usr/src/sys/amd64/conf/VAGRANT
