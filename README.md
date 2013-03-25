@@ -24,13 +24,16 @@ and error, I was forced to write a shell provisioning script to mount NFS shares
 manually. Please see [Vagrant & FreeBSD](#vagrant--freebsd)
 
 **CHANGELOG:**
+* 2012-03-24 - Reinstalled ports with absolute minimum options. If this recent
+  reinstall causes problems, please open an isssue.
+* 2012-03-24 - Updated compile options to use -Os
 * 2012-03-23 - Renamed S3 path to use lowercase (S3 best practices)
 * 2012-03-22 - Included openjdk7 as requested by
 [@marcoVermeulen](https://github.com/marcoVermeulen)
 * 2012-03-22 - Updated README.md for Vagrant 1.1.2 (what a pain!!)
 * 2012-03-22 - Corrected insane `MAKE_JOBS_NUMBER` in make.conf
 * 2012-03-22 - Configued basic bash completion
-(see `/usr/local/etc/bash_completion.d`)
+  (see `/usr/local/etc/bash_completion.d`)
 * 2013-03-22 - FreeBSD updated with `freebsd-update`
 * 2013-03-22 - Updated to Puppet 3.1.1 and Chef 11.4.0
 * 2013-03-22 - Configured basic vim environment using Vundle
@@ -42,7 +45,7 @@ manually. Please see [Vagrant & FreeBSD](#vagrant--freebsd)
 * 2013-03-21 - Added useful aliases (see `~/.bash_aliases`)
 * 2013-03-21 - Removed Janus vim environment
 * 2013-02-10 - Bundled Vagrantfile now includes a link to where the box came
-from (`config.vm.box_url`).
+  from (`config.vm.box_url`).
 * 2013-02-10 - Updated both the UFS and ZFS Vagrant boxes. This includes all
 recent security fixes, port updates and rubygems.
 * 2013-01-03 - Updated both the UFS and ZFS Vagrant boxes to 9.1-RELEASE.
@@ -64,11 +67,11 @@ to Xorg, LAMP servers, other other related services.
 * Puppet 3.1.1
 * Chef 11.4.0
 * Ruby 1.9
-* sudo 1.8.6.p7
+* sudo 1.8.6
 * VirtualBox Guest Additions 4.2.6
 
 ### Other Software
-* openjdk
+* openjdk7
 * vim 7.3.669
 * wget 1.14
 * curl 7.24
@@ -94,7 +97,7 @@ to the directory that contains your Vagrant setup. You can use any higher
 directory as NFS exports are recursive.
 
     # /etc/exports: NFS file systems being exported.  See exports(5).
-    /EXPORT/DIR 127.0.0.1(rw,async,no_root_squash,no_subtree_check,insecure)
+    /EXPORT/DIR 127.0.0.1(rw,async,no_subtree_check,insecure,anonuid=1001,anongid=1001)
 
 ### Vagrantfile Template
 
@@ -128,6 +131,10 @@ to use NFS.
 
 The provisioning script grabs the default gateway for the NFS hsot. Be sure to
 change `s.args` to reflect your own source and destination directories.
+
+**NOTE:** It seems that the provisioning shell script does not run
+automatically. As such, I suggest start vagrant with `vagrant up; vagrant
+provision`.
 
 ## FreeBSD ZFS Notes
 
@@ -210,8 +217,8 @@ Additioanlly, the entire system and kernel were built with clang. =D
 
     # Compile Time Optimizations
     CPUTYPE?=  native
-    CFLAGS=    -O2 -pipe -fno-strict-aliasing
-    COPTFLAGS= -O2 -pipe -funroll-loops -ffast-math -fno-strict-aliasing
+    CFLAGS=    -Os -mtune=generic -pipe
+    COPTFLAGS= -Os -mtune=generic -pipe
 
     # Update to new PKGNG package manager
     WITH_PKGNG= YES
