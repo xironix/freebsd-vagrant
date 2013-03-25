@@ -28,7 +28,7 @@ manually. Please see [Vagrant & FreeBSD](#vagrant--freebsd)
   reinstall causes problems, please open an isssue.
 * 2012-03-24 - Updated compile options to use -Os
 * 2012-03-23 - Renamed S3 path to use lowercase (S3 best practices)
-* 2012-03-22 - Included openjdk7 as requested by
+* 2012-03-22 - Included OpenJDK 7 as requested by
 [@marcoVermeulen](https://github.com/marcoVermeulen)
 * 2012-03-22 - Updated README.md for Vagrant 1.1.2 (what a pain!!)
 * 2012-03-22 - Corrected insane `MAKE_JOBS_NUMBER` in make.conf
@@ -56,7 +56,7 @@ recent security fixes, port updates and rubygems.
 This is not a complete list of installed software, but more of a list of
 semi-noteable installations. As with
 [@marcoVermeulen](https://github.com/marcoVermeulen) and his request for
-openjdk7 to be included, I am open to preloading other sofrware packages upon
+OpenJDK 7 to be included, I am open to preloading other sofrware packages upon
 request.
 
 However, it should be noticed that I will always attempt to keep the Vagrant box
@@ -71,7 +71,7 @@ to Xorg, LAMP servers, other other related services.
 * VirtualBox Guest Additions 4.2.6
 
 ### Other Software
-* openjdk7
+* OpenJDK 7
 * vim 7.3.669
 * wget 1.14
 * curl 7.24
@@ -310,7 +310,7 @@ Below is the custom kernel used in these boxes.
     options   GEOM_PART_GPT     # GUID Partition Tables.
     options   GEOM_LABEL        # Provides labelization
     options   COMPAT_FREEBSD32  # Compatible with i386 binaries
-    options   COMPAT_FREEBSD7   # Seems to be required by openjdk7
+    options   COMPAT_FREEBSD7   # Seems to be required by OpenJDK 7
     options   SCSI_DELAY=500    # Delay (in ms) before probing SCSI
     options   KTRACE            # ktrace(1) support
     options   STACK             # stack(9) support
