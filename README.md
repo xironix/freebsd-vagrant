@@ -310,6 +310,7 @@ Below is the custom kernel used in these boxes.
     options   GEOM_PART_GPT     # GUID Partition Tables.
     options   GEOM_LABEL        # Provides labelization
     options   COMPAT_FREEBSD32  # Compatible with i386 binaries
+    options   COMPAT_FREEBSD7   # Seems to be required by openjdk7
     options   SCSI_DELAY=500    # Delay (in ms) before probing SCSI
     options   KTRACE            # ktrace(1) support
     options   STACK             # stack(9) support
