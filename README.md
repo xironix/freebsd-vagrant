@@ -86,7 +86,7 @@ to use NFS.
     # We need to use the v1 configuration to disable shared folders
     Vagrant.configure("1") do |config|
       # Vagrant 1.1.x refuses to play nicely with FreeBSD and NFS.
-      # As such, we have to disabled shared folders.
+      # As such, we have to disable shared folders.
       config.vm.share_folder "vagrant-root", nil, ".", guestpath: nil
     end
 
