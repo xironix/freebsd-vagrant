@@ -5,7 +5,7 @@ This repo contains download links to the following Vagrant boxes:
 * [FreeBSD 9.1 64-bit - UFS](https://s3.amazonaws.com/vagrant_boxen/freebsd_amd64_ufs.box)
 * [FreeBSD 9.1 64-bit - ZFS](https://s3.amazonaws.com/vagrant_boxen/freebsd_amd64_zfs.box)
 
-## Updating - Current with 9.1-RELEASE
+## Updating - Current with 9.1-RELEASE-p1
 
 I will keep these Vagrant boxes up to date with the 9.1-RELEASE branch. For the
 time being, you can probably expect these Vagrant boxes to be updated once or
@@ -13,7 +13,7 @@ twice a month.
 
 Additionally, I'm more than happy to accomodate any special requests with
 respect to any default software installed or even custom Vagrant boxes based on
-9.1-RELEASE.
+9.1-RELEASE-p1.
 
 **UPDATE:** The URL for the Vagrant boxes has changed. Please update your
 Vagrantfile to reflect the changes.
@@ -23,34 +23,9 @@ future versions remains to be seen), mounting NFS shares fails. With much tial
 and error, I was forced to write a shell provisioning script to mount NFS shares
 manually. Please see [Vagrant & FreeBSD](#vagrant--freebsd)
 
-**CHANGELOG:**
-* 2012-03-24 - Reinstalled ports with absolute minimum options. If this recent
-  reinstall causes problems, please open an isssue.
-* 2012-03-24 - Updated compile options to use -Os
-* 2012-03-23 - Renamed S3 path to use lowercase (S3 best practices)
-* 2012-03-22 - Included OpenJDK 7 as requested by
-[@marcoVermeulen](https://github.com/marcoVermeulen)
-* 2012-03-22 - Updated README.md for Vagrant 1.1.2 (what a pain!!)
-* 2012-03-22 - Corrected insane `MAKE_JOBS_NUMBER` in make.conf
-* 2012-03-22 - Configued basic bash completion
-  (see `/usr/local/etc/bash_completion.d`)
-* 2013-03-22 - FreeBSD updated with `freebsd-update`
-* 2013-03-22 - Updated to Puppet 3.1.1 and Chef 11.4.0
-* 2013-03-22 - Configured basic vim environment using Vundle
-* 2013-03-21 - Using threaded perl
-* 2013-03-21 - Upgraded to Ruby 1.9.3p392
-* 2013-03-21 - Removed unnecessary ports
-* 2013-03-21 - Changed default umask to 0027
-* 2013-03-21 - Changed ~/.bashrc to be more sane
-* 2013-03-21 - Added useful aliases (see `~/.bash_aliases`)
-* 2013-03-21 - Removed Janus vim environment
-* 2013-02-10 - Bundled Vagrantfile now includes a link to where the box came
-  from (`config.vm.box_url`).
-* 2013-02-10 - Updated both the UFS and ZFS Vagrant boxes. This includes all
-recent security fixes, port updates and rubygems.
-* 2013-01-03 - Updated both the UFS and ZFS Vagrant boxes to 9.1-RELEASE.
-* 2013-01-03 - VirtualBox images are now hosted with Amazon S3.
-* 2012-01-03 - VirtualBox Guest Additions updated to 4.2.6
+### Change Log
+
+Moved this section to [CHANGELOG.md](CHANGELOG.md)
 
 ## Preloaded Software
 This is not a complete list of installed software, but more of a list of
@@ -213,7 +188,7 @@ Additioanlly, the entire system and kernel were built with clang. =D
     CPP= clang-cpp
 
     # 2 jobs per CPU
-    MAKE_JOBS_NUMBER= 2
+    MAKE_JOBS_NUMBER= $(sysctl -a | grep hw.ncpu | awk '{print $2"*2"}' | bc)
 
     # Compile Time Optimizations
     CPUTYPE?=  native
