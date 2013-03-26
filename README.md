@@ -18,10 +18,10 @@ respect to any default software installed or even custom Vagrant boxes based on
 **UPDATE:** The URL for the Vagrant boxes has changed. Please update your
 Vagrantfile to reflect the changes.
 
-**IMPORTANT:** With the release of Vagrant 1.1.0 through to 1.1.2 (support in
-future versions remains to be seen), mounting NFS shares fails. With much tial
-and error, I was forced to write a shell provisioning script to mount NFS shares
-manually. Please see [Vagrant & FreeBSD](#vagrant--freebsd)
+**IMPORTANT:** With the release of Vagrant 1.1.x (support in future versions
+remains to be seen), mounting NFS shares fails. After _much_ tial and error, I
+was forced to write a shell provisioning script to mount NFS shares manually.
+Please see [Vagrant & FreeBSD](#vagrant--freebsd)
 
 ### Change Log
 
