@@ -1,5 +1,11 @@
 # Change Log
 
+## March 26, 2013
+
+### Bug Fixes
+* Updated instructions on how to make Vagrant play nicely with NFS shared
+  folders.
+
 ## March 25, 2013
 
 ### Improvements
