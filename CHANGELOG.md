@@ -1,5 +1,20 @@
 # Change Log
 
+## May 5, 2013
+
+### Bug Fixes
+
+### Improvements
+* Created a local new build procedure (this is for @xironix's use)
+* Added all relevant config files and scripts to git.
+* Upgraded to chef XXX
+* Upgraded to puppet XXX
+* Rebuilt minimal world & kernel
+* Added symbolic link for /usr/local/bin/bash to /bin/bash for script
+  compatibility.
+* Rebuilt Vagrant boxes from scratch to clear cruft.
+* No longer using Canada/Pacific As the timezone, switched to UTC.
+
 ## March 26, 2013
 
 ### Bug Fixes

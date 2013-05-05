@@ -1,0 +1,16 @@
+#!/bin/sh
+#
+# Search for ports that contain a "work" subdirectory,
+# then go into that port directory and perform a make clean
+
+echo "Cleaning work directories..."
+for i in `find /usr/ports -name work -type d`
+do
+  cd `echo "$i" | sed 's/\/[^\/]*$/\//'`
+  make clean
+done
+
+echo "Deleting old object directories..."
+chflags -R noschg /usr/obj/*
+rm -rf /usr/obj/*
+

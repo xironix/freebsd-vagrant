@@ -1,0 +1,107 @@
+#!/bin/sh
+# Creates a clone to both UFS and ZFS drives
+
+echo "Cleaning ports tree..."
+clean-ports
+
+echo "Creating GPT Partitions..."
+gpart create -s gpt ada1
+gpart create -s gpt ada2
+gpart add -s 64K -t freebsd-boot -l boot-ufs ada1
+gpart add -s 64K -t freebsd-boot -l boot-zfs ada2
+gpart add -s 4G -t freebsd-swap -l swap-ufs ada1
+gpart add -s 4G -t freebsd-swap -l swap-zfs ada2
+gpart add -t freebsd-ufs -l ufs-disk ada1
+gpart add -t freebsd-zfs -l zfs-disk ada2
+
+echo "Installing protected MBR..."
+gpart bootcode -b /boot/pmbr -p /boot/gptboot -i 1 ada1
+gpart bootcode -b /boot/pmbr -p /boot/gptzfsboot -i 1 ada2
+
+echo "Creating ZFS pool..."
+zpool create zroot /dev/gpt/zfs-disk
+
+echo "Creating mountpoint directories..."
+mkdir /mnt/zfs
+mkdir /mnt/ufs
+
+echo "Setting ZFS bootfs property, checksums, and mountpoints"
+zpool set bootfs=zroot zroot
+zfs set checksum=fletcher4 zroot
+zfs set mountpoint=/mnt/zfs zroot
+
+echo "Exporting & Importing pool..."
+zpool export zroot
+zpool import -o cachefile=/var/tmp/zpool.cache zroot
+
+echo "Creating ZFS filesystem..."
+zfs create                                               zroot/usr
+zfs create                                               zroot/usr/home
+zfs create                                               zroot/var
+zfs create -o compression=on   -o exec=on  -o setuid=off zroot/tmp
+zfs create -o compression=lzjb             -o setuid=off zroot/usr/ports
+zfs create -o compression=off  -o exec=off -o setuid=off zroot/usr/ports/distfiles
+zfs create -o compression=off  -o exec=off -o setuid=off zroot/usr/ports/packages
+zfs create -o compression=lzjb -o exec=off -o setuid=off zroot/usr/src
+zfs create -o compression=lzjb -o exec=off -o setuid=off zroot/var/crash
+zfs create                     -o exec=off -o setuid=off zroot/var/db
+zfs create -o compression=lzjb -o exec=on  -o setuid=off zroot/var/db/pkg
+zfs create                     -o exec=off -o setuid=off zroot/var/empty
+zfs create -o compression=lzjb -o exec=off -o setuid=off zroot/var/log
+zfs create -o compression=gzip -o exec=off -o setuid=off zroot/var/mail
+zfs create                     -o exec=off -o setuid=off zroot/var/run
+zfs create -o compression=lzjb -o exec=on  -o setuid=off zroot/var/tmp
+
+echo "Creating symlinks & fixing permissions on ZFS filesystem..."
+chmod 1777 /mnt/zfs/tmp
+cd /mnt/zfs ; ln -s usr/home home
+chmod 1777 /mnt/zfs/var/tmp
+
+echo "Creating UFS filesystem..."
+newfs -Uj -L ROOT /dev/ada1p3
+
+echo "Mounting UFS filesystem..."
+mount /dev/ada1p3 /mnt/ufs
+
+echo "Cloning system to UFS & ZFS drive..."
+rsync -aH --exclude-from=/etc/rsync.exclude / /mnt/ufs/ &
+rsync -aH --exclude-from=/etc/rsync.exclude / /mnt/zfs/
+
+echo "Copying zpool.cache..."
+cp /var/tmp/zpool.cache /mnt/zfs/boot/zfs/zpool.cache
+
+echo "Updating rc.conf on ZFS system..."
+echo -e '\n' >> /mnt/zfs/etc/rc.conf
+echo '# Enable ZFS' >> /mnt/zfs/etc/rc.conf
+echo 'zfs_enable="YES"' >> /mnt/zfs/etc/rc.conf
+
+echo "Updating loader.conf on ZFS system..."
+echo -e '\n' >> /mnt/zfs/boot/loader.conf
+echo 'zfs_load="YES"' >> /mnt/zfs/boot/loader.conf
+echo 'vfs.root.mountfrom="zfs:zroot"' >> /mnt/zfs/boot/loader.conf
+
+echo "Creating fstab on ZFS system..."
+echo '# Device    Mountpoint  FStype  Options Dump  Pass#' > /mnt/zfs/etc/fstab
+echo '/dev/ada0p2 none        swap    sw      0     0'    >> /mnt/zfs/etc/fstab
+echo -e '\n# For COMPAT_FREEBSD7 & OpenJDK7'              >> /mnt/zfs/etc/fstab
+echo 'fdesc       /dev/fd     fdescfs rw      0     0'    >> /mnt/zfs/etc/fstab
+echo 'proc        /proc       procfs  rw      0     0'    >> /mnt/zfs/etc/fstab
+
+echo "Check that the system cloned properly in another terminal."
+echo "Pausing... Press enter to continue..."
+read nothing
+
+echo "Umounting UFS partitions..."
+umount /mnt/ufs
+
+echo "Unmounting ZFS paritions and fixing mountpoints..."
+zfs set readonly=on zroot/var/empty
+zfs umount -af
+zfs set mountpoint=legacy zroot
+zfs set mountpoint=/tmp   zroot/tmp
+zfs set mountpoint=/usr   zroot/usr
+zfs set mountpoint=/var   zroot/var
+
+echo "Removing mountpoint directories..."
+rmdir /mnt/ufs
+rmdir /mnt/zfs

@@ -1,0 +1,4 @@
+#!/bin/bash
+#
+# This script is intended for @xironix's internal use in building and updating
+# the FreeBSD Vagrant boxes.

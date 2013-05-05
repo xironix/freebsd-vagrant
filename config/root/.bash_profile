@@ -1,0 +1,1 @@
+../usr/home/vagrant/.bash_profile

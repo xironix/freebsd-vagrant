@@ -1,0 +1,5 @@
+# $FreeBSD: release/9.1.0/etc/hosts 109997 2003-01-28 21:29:23Z dbaker $
+#
+# Host Database
+#
+127.0.0.1   vagrant-freebsd.vagrantup.com vagrant-freebsd localhost

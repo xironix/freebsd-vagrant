@@ -1,0 +1,63 @@
+#!/bin/bash
+#
+# This script is intended for @xironix's internal use in building and updating
+# the FreeBSD Vagrant boxes.
+
+# Update the config files
+scp -r ../config/* freebsd:/
+
+# Restore ownership to vagrant
+ssh freebsd "chown -R vagrant:vagrant /usr/home/vagrant"
+
+# Update the ports tree
+ssh freebsd "portsnap fetch; portsnap update"
+
+# Upgrade any installed ports
+ssh freebsd "portmaster -BCDa --no-confirm"
+
+# Update system sources
+ssh freebsd "svn update /usr/src"
+
+# Ask if we want to rebuild world
+if ask "Do you want to rebuild world?"; then
+  echo "Rebuilding world..."
+fi
+
+# Ask if we want to rebuild the kernel
+if ask "Do you want to rebuild the kernel?"; then
+  echo "Rebuilding kernel..."
+fi
+
+# This is a general-purpose function to ask Yes/No questions in Bash, either
+# with or without a default answer. It keeps repeating the question until it
+# gets a valid answer.
+# Source @davejamesmiller - https://gist.github.com/davejamesmiller/1965569
+function ask {
+  while true; do
+    if [ "${2:-}" = "Y" ]; then
+      prompt="Y/n"
+      default=Y
+    elif [ "${2:-}" = "N" ]; then
+      prompt="y/N"
+      default=N
+    else
+      prompt="y/n"
+      default=
+    fi
+
+    # Ask the question
+    read -p "$1 [$prompt] " REPLY
+
+    # Default?
+    if [ -z "$REPLY" ]; then
+      REPLY=$default
+    fi
+
+    # Check if the reply is valid
+    case "$REPLY" in
+      Y*|y*) return 0 ;;
+      N*|n*) return 1 ;;
+    esac
+
+  done
+}
