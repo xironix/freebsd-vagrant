@@ -44,8 +44,9 @@ alias ln='ln -i'
 # We want vim!
 alias vi='vim -p'
 
-# Portsnap
-alias psu='portsnap fetch ; portsnap update'
+# Ports
+alias pf='svn co http://svn0.us-east.freebsd.org/ports/head /usr/ports'
+alias pu='svn update /usr/ports'
 
 # Portmaster
 alias pm='portmaster -BCD'

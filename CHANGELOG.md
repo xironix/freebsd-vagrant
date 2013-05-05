@@ -5,6 +5,7 @@
 ### Bug Fixes
 
 ### Improvements
+* Switched to svn ports tree
 * Created a local new build procedure (this is for @xironix's use)
 * Added all relevant config files and scripts to git.
 * Upgraded to chef XXX
