@@ -1,5 +1,8 @@
 # Paths
-export PATH=~/.gem/ruby/2.0.0/bin:$PATH       # Add local gems to path
+if [[ $EUID -ne 0 ]]; then
+  export PATH=$(ruby -rubygems -e "puts Gem.user_dir")/bin:$PATH
+  export GEM_HOME=$(ruby -rubygems -e "puts Gem.user_dir")
+fi
 
 # Default Editor
 export EDITOR="vim"

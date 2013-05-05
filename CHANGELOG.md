@@ -3,13 +3,15 @@
 ## May 5, 2013
 
 ### Bug Fixes
+* Enabled IPv6 support to avoid errors with some ports. Additionally, IPv6 will
+be enabled globally by default.
 
 ### Improvements
 * Switched to svn ports tree
 * Created a local new build procedure (this is for @xironix's use)
 * Added all relevant config files and scripts to git.
-* Upgraded to chef XXX
-* Upgraded to puppet XXX
+* Upgraded to chef 11.4.4
+* Upgraded to puppet 3.1.1
 * Rebuilt minimal world & kernel
 * Added symbolic link for /usr/local/bin/bash to /bin/bash for script
   compatibility.

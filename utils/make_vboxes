@@ -2,3 +2,6 @@
 #
 # This script is intended for @xironix's internal use in building and updating
 # the FreeBSD Vagrant boxes.
+
+# Update the build time of the box.
+ssh freebsd "date > /etc/vagrant_box_build_time"
