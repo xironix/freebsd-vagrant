@@ -37,30 +37,44 @@ function ask {
   done
 }
 
-echo -e "\033[1;32mUpdating config files...\n\033[0m"
-#scp -r ../config/* freebsd:/
+echo -e "\033[1;32mUpdating config files...\033[0m"
+scp -r ../config/* freebsd:/
 
 echo -e "\033[1;32mRestoring ownership of vagrant home to vagrant...\n\033[0m"
-#ssh freebsd "chown -R vagrant:vagrant /usr/home/vagrant"
+ssh freebsd "chown -R vagrant:vagrant /usr/home/vagrant"
 
-echo -e "\033[1;32mUpdating ports tree...\n\033[0m"
-#ssh freebsd "svn update /usr/ports"
-
-echo -e "\033[1;32mUpdating installed ports...\n\033[0m"
-#ssh freebsd "portmaster -BCDa --no-confirm"
-
-echo -e "\033[1;32mUpdating system sources...\n\033[0m"
-#ssh freebsd "svn update /usr/src"
-
-echo -e "\033[1;31m"
-if ask "Do you want to rebuild world?"; then
-  echo -e "\033[1;32mRebuilding world...\n\033[0m"
+echo -e "\033[0;36m"
+if ask "Do you want to update the ports tree?" N; then
+  echo -e "\033[1;32mUpdating ports tree...\033[0m"
+  ssh freebsd "svn update /usr/ports"
+  echo -e "\033[1;32mUpdating installed ports...\033[0m"
+  ssh freebsd "portmaster -BCDa --no-confirm"
 else
   echo -e "\033[0m"
 fi
 
-if ask "Do you want to rebuild the kernel?"; then
-  echo -e "\033[1;32mRebuilding kernel...\n\033[0m"
+echo -e "\033[0;36m"
+if ask "Do you want to update system source?" N; then
+  echo -e "\033[1;32mUpdating system sources...\033[0m"
+  ssh freebsd "svn update /usr/src"
+else
+  echo -e "\033[0m"
+fi
+
+echo -e "\033[0;36m"
+if ask "Do you want to rebuild world?" N; then
+  echo -e "\033[1;32mRebuilding world...\033[0m"
+  ssh freebsd "cd /usr/src; make -j16 buildworld; \
+    yes | make -j16 installworld delete-old delete-old-libs; \
+    mergemaster -U;"
+else
+  echo -e "\033[0m"
+fi
+
+echo -e "\033[0;36m"
+if ask "Do you want to rebuild the kernel?" N; then
+  echo -e "\033[1;32mRebuilding kernel...\033[0m"
+  ssh freebsd "cd /usr/src; make -j16 buildkernel; make -j16 installkernel"
 else
   echo -e "\033[0m"
 fi
