@@ -1,0 +1,3 @@
+# Device     Mountpoint  FStype  Options Dump/Pass#
+/dev/ada0p2  /           ufs     rw      1 1
+/dev/ada0p3  none        swap    sw      0 0
